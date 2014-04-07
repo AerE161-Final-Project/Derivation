@@ -1,9 +1,9 @@
-      PROGRAM B12FinalProject
+PROGRAM B12FinalProject
       IMPLICIT NONE
       INTEGER :: n=0 !number of points in the file
       INTEGER :: ierror=0 !Staus 0 for success
       INTEGER :: i,low,h
-      REAL, ALLOCATABLE, DIMENSION(:) :: veolcity, time
+      REAL, ALLOCATABLE, DIMENSION(:) :: V, t !veolcity(m/s) and time(sec)
       REAL :: temp1, temp2 !Temporary variable for swap
       REAL :: Simpson13, Simpson38
       
@@ -19,12 +19,12 @@
         n = n + 1
        END DO
         h=n-1 !number of subintervals
-       ALLOCATE(veolcity(low:n),time(low:n),STAT=ierror)!Allocate memory
+       ALLOCATE(t(low:n),V(low:n),STAT=ierror)!Allocate memory
          IF(ierror==0) THEN ! Successful allocation
            REWIND(Unit=1)
          !output data points
            DO i=1,n
-            READ(1,*) time(i-1),veolcity(i-1)
+            READ(1,*) t(i-1),V(i-1)
            END DO
            IF(MOD(n-1,2)==0)THEN !Mod gets the remainder
            WRITE(*,*)"Simpson13"
@@ -36,13 +36,14 @@
          WRITE(*,55) "Time","Veolcity" !Prints header to screen
          55 FORMAT(3X,A,12X,A)
         DO i=0,h !Print input values to the screen
-         WRITE(*,*) time(i),veolcity(i)
+         WRITE(*,*) t(i),V(i)
         END DO !End of loop to print data to screen
-       DEALLOCATE(veolcity,time,STAT=ierror)
+       DEALLOCATE(t,V,STAT=ierror)
         END IF !End of allocate if statement
       ELSE
         WRITE(*,*)"File open failed -- status=",ierror
       END IF  !End of file check if statement
       CLOSE(1)
       END PROGRAM B12FinalProject
+
 
