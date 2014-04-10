@@ -1,0 +1,34 @@
+FUNCTION Simpson38(V,h,n)
+
+REAL :: V(10), S1, S2, S3, Simpson_38
+INTEGER :: h, n, i, j, k
+
+WRITE(*,*) 'Enter Velocities',V
+WRITE(*,*) 'Enter time increment', h
+WRITE(*,*) 'Enter number of subintervals', n
+
+a = 0
+DO i = 1,9,3
+a = a + V(i)
+END DO
+S1 = 3*a
+
+b=0
+DO j = 2,10,3
+b = b + V(j)
+END DO
+S2 = 3*b
+
+c=0
+DO k = 3,10,3
+c = c + V(k)
+END DO
+S3 = 2*c
+
+Simpson_38 = V(0) + S1 + S2 + S3 + V(10)
+
+WRITE(*,*) 'The distance Travelled is', Simpson_38, 'm'
+END FUNCTION Simpson38(V,h,n)
+
+  
+  
