@@ -87,4 +87,17 @@
       END DO
       Simpson38 =((3./8)*h)*(V(0)+3*S1+3*S2+2*S3+V(n))
       END FUNCTION
-
+SUBROUTINE Acceleration(V,h,n,acclr)
+    IMPLICIT NONE 
+    REAL, INTENT(IN)::h,n
+    INTEGER :: i
+    REAL, DIMENSION (0,n-1), INTENT (IN)::V
+    REAL, DIMENSION (0,n-1), INTENT(OUT)::acclr
+    acclr(0)=(-3*(V(0))+4*(V(1)-V(2))/2*h
+    DO i=(1,n-2,1)
+    acclr(i)=(V(i+1)-V(i-1))/(2*h)
+    END DO 
+    acclr(n-1)=(V(n-3)-4(V(n-2))+3(V(n-1))/(2*h)
+    END Acceleration
+    
+    
