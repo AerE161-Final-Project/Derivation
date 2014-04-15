@@ -27,7 +27,7 @@
            DO i=1,n
             READ(1,*) t(i-1),V(i-1)
            END DO
-         inc= (t(n-1)-t(0))/n
+         inc= (t(n-1)-t(0))/(n-1) !Calculates the increment of time
          WRITE(*,*)"Data points from file ",filename
          WRITE(*,*)"_________________________________"
          WRITE(*,55) "Time","Veolcity" !Prints header to screen
@@ -53,32 +53,38 @@
       CLOSE(1)
       END PROGRAM B12FinalProject
 
-      REAL FUNCTION Simpson13(V,inc,n)
+      REAL FUNCTION Simpson13(V,h,n)
       IMPLICIT NONE
       INTEGER, INTENT(IN) :: n
-      REAL, INTENT(IN) :: inc
-      INTEGER :: i
+      REAL, INTENT(IN) :: h
+      INTEGER :: i,j
       REAL, INTENT(IN), DIMENSION(0:n) :: V
       REAL :: S1=0, S2=0
-      DO i=1,n,2
+      DO i=1,n-1,2
       S1= S1 + V(i)
-      S2= S2 + V(i+1)
       END DO
-      Simpson13 = (1./3)*(inc/(n+1))*(V(0)+4*S1+2*S2+V(n+1))
+      DO j=2,n-2,2
+      S2= S2 +V(j)
+      END DO
+      Simpson13 = (h/3)*(V(0)+4*S1+2*S2+V(n))
       END FUNCTION
 
-      REAL FUNCTION Simpson38(V,inc,n)
+      REAL FUNCTION Simpson38(V,h,n)
       IMPLICIT NONE
       INTEGER, INTENT(IN) :: n
-      REAL, INTENT(IN) :: inc
-      INTEGER :: i
+      REAL, INTENT(IN) :: h
+      INTEGER :: i,j,k
       REAL, INTENT(IN), DIMENSION(0:n) :: V
       REAL :: S1=0, S2=0, S3=0
-      DO i=1,n,3
+      DO i=1,n-2,3
       S1= S1 + V(i)
-      S2= S2 + V(i+1)
-      S3= S3 + V(i+2)
       END DO
-      Simpson38 =((3./8)*(inc/(n)))*(V(0)+3*S1+3*S2+2*S3+V(n+1))
+      DO j=2,n-1,3
+      S2= S2 + V(j)
+      END DO
+      DO k=3,n-3,3
+      S3= S3 + V(k)
+      END DO
+      Simpson38 =((3./8)*h)*(V(0)+3*S1+3*S2+2*S3+V(n))
       END FUNCTION
 
