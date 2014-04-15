@@ -2,7 +2,7 @@
       IMPLICIT NONE
       INTEGER :: n=0 !number of points in the file
       INTEGER :: ierror=0 !Staus 0 for success
-      INTEGER :: i,low,subinter
+      INTEGER :: i,low,subinter,!h
       REAL, ALLOCATABLE, DIMENSION(:) :: V, t !veolcity(m/s) and time(sec)
       REAL :: temp1, temp2 !Temporary variable for swap
       REAL :: Simpson13, Simpson38,Distance,inc
@@ -12,7 +12,7 @@
       !want your data to be read from
       OPEN(Unit=1, File=filename, Status='OLD', Action='READ', &
       Iostat=ierror)
-
+!h=t(1)-t(0)
       IF(ierror==0) THEN
        DO
         READ(1,*,Iostat=ierror)temp1, temp2
@@ -93,7 +93,7 @@ SUBROUTINE Acceleration(V,h,n,acclr)
     INTEGER :: i
     REAL, DIMENSION (0,n-1), INTENT (IN)::V
     REAL, DIMENSION (0,n-1), INTENT(OUT)::acclr
-    acclr(0)=(-3*(V(0))+4*(V(1)-V(2))/2*h
+    acclr(0)=(-3*(V(0))+4*V(1)-V(2))/(2*h)
     DO i=(1,n-2,1)
     acclr(i)=(V(i+1)-V(i-1))/(2*h)
     END DO 
