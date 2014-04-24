@@ -1,4 +1,4 @@
-PROGRAM B12FinalProject
+PROGRAM B10FinalProject
       IMPLICIT NONE
       INTEGER :: n=0 !number of points in the file
       INTEGER :: ierror=0 !Staus 0 for success
@@ -67,7 +67,7 @@ PROGRAM B12FinalProject
         WRITE(*,*)"File open failed -- status=",ierror
       END IF  !End of file check if statement
       CLOSE(1)!closes file opened by program
-      END PROGRAM B12FinalProject
+      END PROGRAM B10FinalProject
 
       REAL FUNCTION Simpson13(V,h,n)
       IMPLICIT NONE
