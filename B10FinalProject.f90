@@ -77,11 +77,11 @@ PROGRAM B10FinalProject
       REAL, INTENT(IN), DIMENSION(0:n) :: V
       REAL :: S1=0, S2=0
       DO i=1,n-1,2
-      S1= S1 + V(i)
-      END DO
+      S1= S1 + V(i) !calculates the sum form 1 to n-1, with iterations of 2
+      END DO !end of do loop
       DO j=2,n-2,2
-      S2= S2 +V(j)
-      END DO
+      S2= S2 +V(j) !calculates the sum from 2 to n-2, with iteration of 2
+      END DO !end of do loop
       Simpson13 = (h/3)*(V(0)+4*S1+2*S2+V(n))
       END FUNCTION
 
@@ -93,27 +93,27 @@ PROGRAM B10FinalProject
       REAL, INTENT(IN), DIMENSION(0:n) :: V
       REAL :: S1=0, S2=0, S3=0
       DO i=1,n-2,3
-      S1= S1 + V(i)
-      END DO
+      S1= S1 + V(i) !calculates the sum of the first summation
+      END DO !end of do loop
       DO j=2,n-1,3
-      S2= S2 + V(j)
-      END DO
+      S2= S2 + V(j)!calculates the sum of the third summation
+      END DO!end of do loop
       DO k=3,n-3,3
       S3= S3 + V(k)
-      END DO
+      END DO !end of do loop
       Simpson38 =((3./8)*h)*(V(0)+3*S1+3*S2+2*S3+V(n))
-      END FUNCTION
+      END FUNCTION !end of simpson38 function
 
       SUBROUTINE Acceleration(V,h,n,acclr)
       IMPLICIT NONE
-      REAL, INTENT(IN) :: h
-      INTEGER, INTENT(IN) :: n
+      REAL, INTENT(IN) :: h !intent in for h
+      INTEGER, INTENT(IN) :: n !intent in for n
       INTEGER :: i
-      REAL, DIMENSION(0:n), INTENT(IN) :: V
-      REAL, DIMENSION(0:n), INTENT(OUT) :: acclr
-      acclr(0)=(-3*V(0)+4*V(1)-V(2))/(2*h)
-      DO i=1,n-1
-      acclr(i)= (V(i+1)-V(i-1))/(2*h)
-      END DO
-      acclr(n)= (V(n-2)-4*V(n-1)+3*V(n))/(2*h)
-      END SUBROUTINE Acceleration
+      REAL, DIMENSION(0:n), INTENT(IN) :: V !velocity inn, in the form of an array
+      REAL, DIMENSION(0:n), INTENT(OUT) :: acclr !acceleration out in form of an array
+      acclr(0)=(-3*V(0)+4*V(1)-V(2))/(2*h) !calculates the accerleration for the first point
+      DO i=1,n-1!a do loop from value 1 to n-1 number of values
+      acclr(i)= (V(i+1)-V(i-1))/(2*h)!calculates the acceleration for all the middle point
+      END DO!end of do loop
+      acclr(n)= (V(n-2)-4*V(n-1)+3*V(n))/(2*h)!calculates the accerleration for the last point
+      END SUBROUTINE Acceleration!end of subroutine
